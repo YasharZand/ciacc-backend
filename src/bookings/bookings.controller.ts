@@ -1,14 +1,20 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { BookingDto } from './dto/booking.dto';
+import { BookingsService } from './bookings.service';
+import { Booking } from './interfaces/booking.interface';
+
 
 @Controller('bookings')
 export class BookingsController {
 
+    constructor(private bookingService:BookingsService){}
+
     @Post()
-    create(): string {
-        return 'This action adds a new cat';
+    async create(@Body() bookingDto: BookingDto) {
+        this.bookingService.create(bookingDto);
     }
     @Get()
-    async findAll(): Promise<any[]> {
-        return ['This action returns a list'];
+    async findAll(): Promise<Booking[]> {
+        return this.bookingService.findAll();
       }
 }
