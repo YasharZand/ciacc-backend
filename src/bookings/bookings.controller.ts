@@ -11,7 +11,7 @@ export class BookingsController {
 
     @Post()
     async create(@Body() bookingDto: BookingDto) {
-        this.bookingService.create(bookingDto);
+        return this.bookingService.create(bookingDto);
     }
     @Get()
     async findAll(): Promise<Booking[]> {
