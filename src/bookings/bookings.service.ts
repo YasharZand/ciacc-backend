@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { Booking } from './interfaces/booking.interface'
-import { exception } from 'console';
 
 
 @Injectable()
