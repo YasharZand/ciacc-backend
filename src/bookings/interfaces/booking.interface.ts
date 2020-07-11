@@ -1,4 +1,5 @@
 export interface Booking {
-    username: string;
-    date: Date;
-  }
+  center: string,
+  username: string;
+  date: Date;
+}
