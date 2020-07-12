@@ -12,7 +12,7 @@ export class BookingsService {
             if (booking.date && booking.username) {
                 booking.date = new Date(booking.date);
                 //A booking date should be between 9Am to 6PM excluding Sundays(0)
-                if (booking.date.getHours() > 9 && booking.date.getHours() < 18 && booking.date.getDay()) {
+                if (booking.date.getHours() >= 9 && booking.date.getHours() < 18 && booking.date.getDay()) {
                     //find the ones with same booking
                     let result = this.bookings.filter(bk => bk.date.getTime() === booking.date.getTime());
                     //2 inspections on weekdays                 
@@ -45,6 +45,11 @@ export class BookingsService {
         return this.bookings;
     }
 
+    getforUser(username: string): Booking[] {
+        let result = this.bookings.filter(bk => bk.username === username);
+        return result;
+    }
+
     getSchedule(dateStr: string): any[] {
 
         if (dateStr) {
@@ -61,11 +66,16 @@ export class BookingsService {
             var d1 = new Date();
             var d2 = new Date(d1);
             d2.setMinutes(d1.getMinutes() + 30);
+            let maxcount = 2;
+                if(date.getDay() == 6)
+                {
+                    maxcount = 4;
+                }
             
-            
-            for (var dates: Booking[] = [], dt = start; dt <= end; dt.setMinutes(dt.getMinutes() + 30)) {
+            for (var dates: Booking[] = [], dt = start; dt < end; dt.setMinutes(dt.getMinutes() + 30)) {
                 let pp = res.filter(bk => bk.date.getTime() === dt.getTime())
-                result.push({count: pp.length, date:new Date(dt)});
+                
+                result.push({count: maxcount - pp.length, date:new Date(dt)});
             }
             return result;
         }

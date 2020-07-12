@@ -21,8 +21,11 @@ export class BookingsController {
 
     @Get(':date')
     async getSchedule(@Param() params) {
-        console.log(params.date);
         return this.bookingService.getSchedule(params.date);
-        // return `This action returns a #${params.date} cat`;
+    }
+
+    @Get('/user/:username')
+    async getUser(@Param() params) {
+        return this.bookingService.getforUser(params.username);
     }
 }
